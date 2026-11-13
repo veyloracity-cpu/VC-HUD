@@ -1,0 +1,484 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+    user-select: none;
+}
+
+body {
+    background: transparent !important;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    display: block !important; /* MUSS auf display: block stehen! */
+}
+#hud-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* Color Variables */
+:root {
+    --main-purple: #c026d3;
+    --neon-purple: #d946ef;
+    --dark-purple: #4c1d95;
+    --bg-glass: rgba(18, 12, 28, 0.82);
+    --border-purple: rgba(217, 70, 239, 0.4);
+}
+
+/* Chat Block */
+.top-left-chat {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 320px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-purple);
+    border-radius: 8px;
+    padding: 10px;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(192, 38, 211, 0.2);
+}
+
+.chat-header {
+    background: rgba(192, 38, 211, 0.3);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 10px;
+    max-height: 140px;
+    overflow-y: hidden;
+}
+
+.chat-msg {
+    background: rgba(0,0,0,0.4);
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.badge {
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 9px;
+}
+.badge.ooc { background: #a855f7; }
+.badge.me { background: #ec4899; }
+
+.chat-msg .author { font-weight: 700; margin-left: 4px; }
+.chat-msg .time { float: right; opacity: 0.5; }
+.chat-msg p { margin-top: 3px; opacity: 0.8; }
+
+.chat-input-box {
+    display: flex;
+    margin-top: 8px;
+    gap: 5px;
+}
+
+.chat-input-box input {
+    flex: 1;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border-purple);
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: #fff;
+    font-size: 10px;
+}
+
+.chat-input-box button {
+    background: var(--main-purple);
+    border: none;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.chat-tabs {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+    font-size: 9px;
+}
+
+.chat-tabs .tab {
+    background: rgba(255,255,255,0.05);
+    padding: 4px 6px;
+    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.chat-tabs .tab.active {
+    background: var(--main-purple);
+    border-color: var(--neon-purple);
+}
+
+/* Announcement Header */
+.server-announce {
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 360px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-purple);
+    border-radius: 8px;
+    text-align: center;
+    padding: 10px 15px;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(192, 38, 211, 0.3);
+}
+
+.announce-title {
+    color: var(--neon-purple);
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.announce-body {
+    font-size: 10px;
+    opacity: 0.8;
+    line-height: 1.3;
+}
+
+/* Top Right Info */
+.top-right-info {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #fff;
+    gap: 5px;
+}
+
+.server-logo {
+    font-weight: 800;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.logo-icon { color: var(--neon-purple); }
+
+.server-stats {
+    display: flex;
+    gap: 8px;
+    font-size: 10px;
+    background: var(--bg-glass);
+    padding: 4px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-purple);
+}
+
+.player-tag {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-purple);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* Money HUD */
+.money-container {
+    position: absolute;
+    top: 100px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.money-row {
+    color: white;
+    text-align: right;
+}
+
+.money-row .label {
+    display: block;
+    font-size: 9px;
+    opacity: 0.6;
+}
+
+.money-row .amount {
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.money-row.cash .amount { color: #ffffff; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+.money-row.bank .amount { color: var(--neon-purple); text-shadow: 0 0 10px var(--neon-purple); }
+
+/* Weapon HUD */
+.weapon-hud {
+    position: absolute;
+    top: 240px;
+    right: 20px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-purple);
+    border-radius: 6px;
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+}
+
+.weapon-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.weapon-name { font-size: 10px; font-weight: 700; color: #aaa; }
+.weapon-ammo { font-size: 12px; font-weight: 800; color: var(--neon-purple); }
+.weapon-icon {
+    font-size: 18px;
+    background: var(--main-purple);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+/* Interaction Prompt */
+.interaction-prompt {
+    position: absolute;
+    top: 50%;
+    right: 22%;
+    transform: translateY(-50%);
+    background: var(--bg-glass);
+    border: 1px solid var(--border-purple);
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #fff;
+    box-shadow: 0 0 25px rgba(192, 38, 211, 0.4);
+}
+
+.prompt-text {
+    font-size: 11px;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.prompt-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.prompt-actions button {
+    border: none;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-yes { background: var(--main-purple); }
+.btn-no { background: rgba(255,255,255,0.1); }
+.key {
+    background: rgba(0,0,0,0.5);
+    padding: 1px 4px;
+    border-radius: 2px;
+    margin-right: 4px;
+}
+
+/* Safezone Banner */
+.safezone-banner {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-glass);
+    border: 1px solid var(--border-purple);
+    border-radius: 30px;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(192, 38, 211, 0.3);
+}
+
+.safezone-banner i {
+    font-size: 20px;
+    color: var(--neon-purple);
+}
+
+.safezone-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+.safezone-text strong { font-size: 12px; color: #fff; }
+
+/* Bottom Left HUD */
+.bottom-left-hud {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.street-location {
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    background: rgba(0,0,0,0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+.status-bar {
+    display: flex;
+    gap: 10px;
+}
+
+.status-circle {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    background: var(--bg-glass);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-purple);
+}
+
+.circular-chart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 3.8;
+}
+
+.circle {
+    fill: none;
+    stroke: var(--neon-purple);
+    stroke-width: 3.8;
+    stroke-linecap: round;
+    transition: stroke-dasharray 0.3s ease;
+}
+
+.status-icon {
+    font-size: 11px;
+    color: #fff;
+    margin-top: 2px;
+}
+
+.status-circle .val {
+    font-size: 7px;
+    color: #fff;
+    font-weight: 700;
+    margin-top: 1px;
+}
+
+/* Speedometer */
+.speedometer-container {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 140px;
+    height: 140px;
+}
+
+.speed-dial {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-glass);
+    border-radius: 50%;
+    border: 2px solid var(--border-purple);
+    box-shadow: 0 0 20px rgba(192, 38, 211, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gauge-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: rotate(135deg);
+}
+
+.gauge-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 8;
+}
+
+.gauge-progress {
+    fill: none;
+    stroke: var(--neon-purple);
+    stroke-width: 8;
+    stroke-dasharray: 375;
+    stroke-dashoffset: 375;
+    transition: stroke-dashoffset 0.1s linear;
+}
+
+.needle {
+    position: absolute;
+    width: 2px;
+    height: 45px;
+    background: #fff;
+    top: 25px;
+    transform-origin: bottom center;
+    transform: rotate(-120deg);
+    transition: transform 0.1s linear;
+    box-shadow: 0 0 8px #fff;
+}
+
+.speed-readout {
+    position: absolute;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+}
+
+.speed-num {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.speed-unit {
+    font-size: 8px;
+    font-weight: 700;
+    opacity: 0.7;
+    letter-spacing: 1px;
+}

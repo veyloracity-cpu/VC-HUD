@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveM Custom HUD</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="hud-container">
+        
+        <!-- Top Left: Chat / Log UI -->
+        <div class="top-left-chat">
+            <div class="chat-header"><i class="fa-solid fa-user-shield"></i> Admin: <span>Lorem ipsum dolor sit amet.</span></div>
+            <div class="chat-messages">
+                <div class="chat-msg"><span class="badge ooc">OOC</span> <span class="author">Shiro Doartworks #30</span> <span class="time">00:10</span><p>Lorem ipsum dolor sit amet consectetur.</p></div>
+                <div class="chat-msg"><span class="badge ooc">OOC</span> <span class="author">Shiro Doartworks #30</span> <span class="time">00:10</span><p>Lorem ipsum dolor sit amet consectetur.</p></div>
+                <div class="chat-msg"><span class="badge me">ME</span> <span class="author">Shiro Doartworks #30</span> <span class="time">00:10</span><p>Lorem ipsum dolor sit amet consectetur.</p></div>
+            </div>
+            <div class="chat-input-box">
+                <input type="text" placeholder="Type here..." readonly>
+                <button><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+
+        <!-- Top Center: Server Announcement -->
+        <div class="server-announce">
+            <div class="announce-title">SERVER ANNOUNCE</div>
+            <div class="announce-body"></div>
+        </div>
+
+        <!-- Top Right: Server Branding & Stats -->
+        <div class="top-right-info">
+            <div class="server-logo">
+                <i class="fa-solid fa-crown logo-icon"></i> <span>Roleplay</span>
+            </div>
+            <div class="server-stats">
+                <span><i class="fa-solid fa-users"></i> 0</span>
+                <span><i class="fa-solid fa-id-badge"></i> 0</span>
+            </div>
+        </div>
+
+        <!-- Right Side: Money HUD -->
+        <div class="money-container">
+            <div class="money-row cash">
+                <span class="label">Cash <i class="fa-solid fa-wallet"></i></span>
+                <span class="amount">$ <span id="cash-amount">999.999.999</span></span>
+            </div>
+            <div class="money-row bank">
+                <span class="label">Bank <i class="fa-solid fa-credit-card"></i></span>
+                <span class="amount">$ <span id="bank-amount">999.999.999</span></span>
+            </div>
+        </div>
+
+        <!-- Right Side: Weapon HUD -->
+        <div class="weapon-hud">
+            <div class="weapon-info">
+                <span class="weapon-name">GLOCK-17</span>
+                <span class="weapon-ammo">30 / 120</span>
+            </div>
+            <div class="weapon-icon">
+                <i class="fa-solid fa-gun"></i>
+            </div>
+        </div>
+        <!-- Bottom Left: Status Circles & Street Name -->
+        <div class="bottom-left-hud">
+            <div class="street-location">
+                <i class="fa-solid fa-compass"></i> <span id="street-name">SW | Great Ocean Hwy</span>
+            </div>
+            <div class="status-bar">
+                <div class="status-circle health">
+                    <svg viewBox="0 0 36 36" class="circular-chart purple">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="health-circle" stroke-dasharray="70, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <i class="fa-solid fa-heart status-icon"></i>
+                    <span class="val" id="health-val">70%</span>
+                </div>
+                <div class="status-circle armor">
+                    <svg viewBox="0 0 36 36" class="circular-chart purple">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="armor-circle" stroke-dasharray="30, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <i class="fa-solid fa-shield-cat status-icon"></i>
+                    <span class="val" id="armor-val">30%</span>
+                </div>
+                <div class="status-circle hunger">
+                    <svg viewBox="0 0 36 36" class="circular-chart purple">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="hunger-circle" stroke-dasharray="25, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <i class="fa-solid fa-burger status-icon"></i>
+                    <span class="val" id="hunger-val">25%</span>
+                </div>
+                <div class="status-circle thirst">
+                    <svg viewBox="0 0 36 36" class="circular-chart purple">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="thirst-circle" stroke-dasharray="100, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <i class="fa-solid fa-bottle-water status-icon"></i>
+                    <span class="val" id="thirst-val">100%</span>
+                </div>
+                <div class="status-circle voice">
+                    <svg viewBox="0 0 36 36" class="circular-chart purple">
+                        <path class="circle-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        <path class="circle" id="voice-circle" stroke-dasharray="66, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    </svg>
+                    <i class="fa-solid fa-microphone status-icon"></i>
+                    <span class="val">Shouting</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Right: Speedometer Gauge -->
+        <div class="speedometer-container" id="speedometer">
+            <div class="speed-dial">
+                <svg viewBox="0 0 200 200" class="gauge-svg">
+                    <circle class="gauge-bg" cx="100" cy="100" r="80" />
+                    <circle class="gauge-progress" cx="100" cy="100" r="80" id="speed-gauge" />
+                </svg>
+                <div class="needle" id="needle"></div>
+                <div class="speed-readout">
+                    <span class="speed-num" id="speed-val">078</span>
+                    <span class="speed-unit">KMH</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
